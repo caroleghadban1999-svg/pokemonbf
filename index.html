@@ -6,10 +6,10 @@ h1{font-size:clamp(35px,9vw,62px);line-height:.95}h2{font-size:clamp(24px,6vw,38
 button{font:inherit;font-weight:bold;padding:13px;border:3px solid #17202a;border-radius:9px;background:white;box-shadow:3px 3px #17202a;cursor:pointer}.p{background:#ffd84d}.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .hp,.bar{height:19px;border:2px solid #17202a;background:#ddd;border-radius:5px;overflow:hidden}.hp i{display:block;width:100%;height:100%;background:#65b741}.bar i{display:block;height:100%;background:#7eb6ff}
 .stat{margin:13px 0}.badges{display:grid;grid-template-columns:1fr 1fr;gap:9px}.badge{background:white;border:2px solid #17202a;border-radius:10px;padding:10px}
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:9px}.gallery img{width:100%;height:260px;object-fit:cover;border:3px solid #17202a;border-radius:11px}.gallery img:first-child{grid-column:1/-1;height:390px}
+.feature-img{width:100%;max-height:520px;object-fit:cover;border:3px solid #17202a;border-radius:12px;display:block;margin:14px auto}.avatar-img{width:190px;height:190px;object-fit:cover;border:4px solid #17202a;border-radius:50%;display:block;margin:10px auto 18px}.gallery{display:grid;grid-template-columns:1fr 1fr;gap:9px}.gallery img{width:100%;height:260px;object-fit:cover;border:3px solid #17202a;border-radius:11px}.gallery img:first-child{grid-column:1/-1;height:390px}
 .hide{display:none}.credits div{padding:8px 0;border-bottom:2px dashed #aaa}@media(max-width:560px){.g,.badges{grid-template-columns:1fr}.gallery img,.gallery img:first-child{height:auto}}
 </style></head><body><div class="app">
-<section id="s1" class="s on c"><h1>POKÉMON:<br>BOYFRIEND EDITION</h1><p>🔴</p><p>A highly questionable adventure awaits...</p><div class="g"><button class="p" onclick="go(2)">▶ NEW GAME</button><button onclick="alert('No save file found. Catch him first.')">CONTINUE</button><button onclick="alert('Girlfriend difficulty: IMPOSSIBLE\nBoyfriend intelligence: Variable\nRomance level: Classified')">OPTIONS</button><button onclick="alert('Trainer C approved.')">INFO</button></div></section>
+<section id="s1" class="s on c"><h1>POKÉMON:<br>BOYFRIEND EDITION</h1><p>🔴</p><p>A highly questionable adventure awaits...</p><div class="g"><button class="p" onclick="go(2)">▶ NEW GAME</button><button onclick="alert('No save file found. Catch him first.')">CONTINUE</button><button onclick="alert('Girlfriend difficulty: IMPOSSIBLE\nBoyfriend intelligence: Variable\nRomance level: Classified')">OPTIONS</button><button onclick="alert('Trainer C approved.')">INFO</button><button class="p" style="grid-column:1/-1" onclick="go(11)">🎂 BIRTHDAY</button></div></section>
 <section id="s2" class="s">
 <h2>A wild GERYES appeared!</h2>
 <div class="box"><b>GERYES — Lv. 99 ❤️</b><div class="hp"><i></i></div></div>
@@ -26,8 +26,8 @@ button{font:inherit;font-weight:bold;padding:13px;border:3px solid #17202a;borde
 
 <button class="p" style="margin-top:14px" onclick="go(3)">THROW BALL</button>
 </section>
-<section id="s3" class="s c"><h1>🔴</h1><h2>Shake... shake... shake...</h2><button class="p" onclick="document.getElementById('caught').classList.remove('hide')">CLICK!</button><div id="caught" class="box hide"><h2>Gotcha!</h2><p>GERYES was caught!</p><p>Nickname: <b>HAYETE ❤️</b></p><button onclick="go(4)">OPEN POKÉDEX</button></div></section>
-<section id="s4" class="s"><h2>POKÉDEX #001</h2><div class="box"><p><b>Name:</b> Geryes</p><p><b>Nickname:</b> hayete</p><p><b>Species:</b> Boyfriend Pokémon</p><p><b>Type:</b> Mountain Mover / Dream Weaver ❤️</p><p><b>Current Habitat:</b> too far</p><p><b>Home:</b> my heart</p><p><b>Trainer:</b> me</p></div><div class="box">Despite questionable behavior leading to weird boyfriend moments, researchers have confirmed that this specimen is extremely lovable.<br><br>Only one is known to exist. Unfortunately, he has already been caught.</div><button class="p" onclick="go(5)">STATS →</button></section>
+<section id="s3" class="s c"><h2>C used Poké Ball!</h2><img class="feature-img" src="throw_ball_girl.jpeg" alt="Trainer C holding a Poké Ball"><div class="box"><h2>Shake... shake... shake...</h2></div><button class="p" onclick="document.getElementById('caught').classList.remove('hide')">CLICK!</button><div id="caught" class="box hide"><h2>Gotcha!</h2><p>GERYES was caught!</p><p>Nickname: <b>HAYETE ❤️</b></p><button onclick="go(4)">OPEN POKÉDEX</button></div></section>
+<section id="s4" class="s"><h2>POKÉDEX #001</h2><img class="avatar-img" src="geryes_pokedex.jpeg" alt="Geryes Pokédex avatar"><div class="box"><p><b>Name:</b> Geryes</p><p><b>Nickname:</b> hayete</p><p><b>Species:</b> Boyfriend Pokémon</p><p><b>Type:</b> Mountain Mover / Dream Weaver ❤️</p><p><b>Current Habitat:</b> too far</p><p><b>Home:</b> my heart</p><p><b>Trainer:</b> me</p></div><div class="box">Despite questionable behavior leading to weird boyfriend moments, researchers have confirmed that this specimen is extremely lovable.<br><br>Only one is known to exist. Unfortunately, he has already been caught.</div><button class="p" onclick="go(5)">STATS →</button></section>
 <section id="s5" class="s"><h2>STATS</h2>
 <div class="stat"><b>Cuteness 100</b><div class="bar"><i style="width:100%"></i></div></div><div class="stat"><b>Dad jokes 94</b><div class="bar"><i style="width:94%"></i></div></div><div class="stat"><b>Intelligence 87</b><div class="bar"><i style="width:87%"></i></div></div><div class="stat"><b>Patience with girlfriend 100</b><div class="bar"><i style="width:100%"></i></div></div><div class="stat"><b>"Chill" date planning 18</b><div class="bar"><i style="width:18%"></i></div></div><div class="stat"><b>Replying quickly 63</b><div class="bar"><i style="width:63%"></i></div></div><div class="stat"><b>Patience level 127</b><div class="bar"><i style="width:100%"></i></div></div><div class="stat"><b>Girlfriend approval MAX</b><div class="bar"><i style="width:100%"></i></div></div><button class="p" onclick="go(6)">MOVE SET →</button></section>
 <section id="s6" class="s"><h2>MOVE SET</h2><div class="box"><b>❤️ Kiss Attack</b><p>Power: 95 · Accuracy: 100%</p><p>Causes trainer to immediately forget why she was annoyed.</p></div><div class="box"><b>💚 Hulk Transformation</b><p>Power: 100</p><p>Somehow activates whenever a male NPC is breathing 10 feet away from trainer.</p></div><div class="box"><b>😈 Annoy Girlfriend</b><p>Power: 120</p></div><button class="p" onclick="go(7)">EVOLUTION →</button></section>
@@ -35,7 +35,7 @@ button{font:inherit;font-weight:bold;padding:13px;border:3px solid #17202a;borde
 <section id="s8" class="s"><h2>BADGES</h2><div class="badges"><div class="badge">🏅 First Date Badge</div><div class="badge">🏅 First Trip Badge</div><div class="badge">🏅 Mariella Approval Badge</div><div class="badge">🏅 Survived First Argument Badge</div><div class="badge">🏅 Made Her Laugh While Angry Badge</div><div class="badge">🏅 Passed the Extended Family Fruit Test Badge</div><div class="badge">🏅 Serial Traveler Badge</div><div class="badge">🏅 Survived Zahle Encounter Badge</div><div class="badge">🏅 Changed Anniversary Date Badge</div></div><button class="p" style="margin-top:15px" onclick="go(9)">HALL OF FAME →</button></section>
 <section id="s9" class="s c"><h2>🏆 HALL OF FAME 🏆</h2><div class="box"><h3>Congratulations!</h3><p><b>C and G entered the Hall of Fame.</b></p></div><div class="gallery"><img src="memory1.jpeg"><img src="memory2.jpeg"><img src="memory3.jpeg"><img src="memory4.jpeg"><img src="memory5.jpeg"></div><button class="p" style="margin-top:15px" onclick="go(10)">CONTINUE →</button></section>
 <section id="s10" class="s"><h2>GAME COMPLETE</h2><div class="box"><p>Pokédex: <b>1/1</b></p><p>Rare Pokémon caught: <b>1</b></p><p>Boyfriends required: <b>1</b></p><p>Search complete: <b>✓</b></p></div><h3>SAVE GAME?</h3><button class="p" onclick="document.getElementById('save').innerHTML='<b>Game saved. ❤️</b><br>Let’s keep playing.'">YES ❤️</button><div id="save" class="box">Game not yet saved.</div><div class="credits"><div><b>Trainer:</b> C</div><div><b>Rare Pokémon:</b> Geryes</div><div><b>Final Boss:</b> surviving C's mood swings</div><div><b>Special thanks:</b> coffee / Mike Rentals / Toters / Steve (Maro) and m3allim / Hady w Sara / Booking.com</div></div><button style="margin-top:20px" onclick="release()">RELEASE POKÉMON</button><div id="rel" class="box hide"></div></section>
-</div><script>
+<section id="s11" class="s c"><h2>🎂 BIRTHDAY EVENT</h2><img class="feature-img" src="birthday_geryes.jpeg" alt="Geryes holding a birthday cake"><div class="box"><b>Special event unlocked!</b><br><br>Old but gold. ✨</div><button class="p" onclick="go(1)">← BACK TO HOME</button></section></div><script>
 let runCount = 0, releaseCount = 0;
 
 function go(n){
@@ -86,14 +86,7 @@ function openBag(){
 
 function openPokemon(){
   hideSubmenu();
-  setBattle(
-    '<b>GERYES — Lv. 99 ❤️</b><br><br>' +
-    '<b>Nickname:</b> hayete<br>' +
-    '<b>Type:</b> Mountain Mover / Dream Weaver<br>' +
-    '<b>Current Habitat:</b> too far<br>' +
-    '<b>Home:</b> my heart<br>' +
-    '<b>Trainer:</b> me'
-  );
+  go(4);
 }
 
 function runAway(){
