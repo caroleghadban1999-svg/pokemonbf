@@ -10,7 +10,22 @@ button{font:inherit;font-weight:bold;padding:13px;border:3px solid #17202a;borde
 .hide{display:none}.credits div{padding:8px 0;border-bottom:2px dashed #aaa}@media(max-width:560px){.g,.badges{grid-template-columns:1fr}.gallery img,.gallery img:first-child{height:auto}}
 </style></head><body><div class="app">
 <section id="s1" class="s on c"><h1>POKÉMON:<br>BOYFRIEND EDITION</h1><p>🔴</p><p>A highly questionable adventure awaits...</p><div class="g"><button class="p" onclick="go(2)">▶ NEW GAME</button><button onclick="alert('No save file found. Catch him first.')">CONTINUE</button><button onclick="alert('Girlfriend difficulty: IMPOSSIBLE\nBoyfriend intelligence: Variable\nRomance level: Classified')">OPTIONS</button><button onclick="alert('Trainer C approved.')">INFO</button></div></section>
-<section id="s2" class="s"><h2>A wild GERYES appeared!</h2><div class="box"><b>GERYES — Lv. 99 ❤️</b><div class="hp"><i></i></div></div><div class="g"><button onclick="battle('fight')">FIGHT</button><button onclick="battle('bag')">BAG</button><button onclick="battle('poke')">POKÉMON</button><button onclick="battle('run')">RUN</button></div><div class="box" id="battle">What will Trainer C do?</div><button class="p" onclick="go(3)">THROW BALL</button></section>
+<section id="s2" class="s">
+<h2>A wild GERYES appeared!</h2>
+<div class="box"><b>GERYES — Lv. 99 ❤️</b><div class="hp"><i></i></div></div>
+
+<div class="g">
+<button id="fightBtn">FIGHT</button>
+<button id="bagBtn">BAG</button>
+<button id="pokemonBtn">POKÉMON</button>
+<button id="runBtn">RUN</button>
+</div>
+
+<div class="box" id="battle">What will Trainer C do?</div>
+<div id="submenu" class="g hide"></div>
+
+<button class="p" style="margin-top:14px" onclick="go(3)">THROW BALL</button>
+</section>
 <section id="s3" class="s c"><h1>🔴</h1><h2>Shake... shake... shake...</h2><button class="p" onclick="document.getElementById('caught').classList.remove('hide')">CLICK!</button><div id="caught" class="box hide"><h2>Gotcha!</h2><p>GERYES was caught!</p><p>Nickname: <b>HAYETE ❤️</b></p><button onclick="go(4)">OPEN POKÉDEX</button></div></section>
 <section id="s4" class="s"><h2>POKÉDEX #001</h2><div class="box"><p><b>Name:</b> Geryes</p><p><b>Nickname:</b> hayete</p><p><b>Species:</b> Boyfriend Pokémon</p><p><b>Type:</b> Mountain Mover / Dream Weaver ❤️</p><p><b>Current Habitat:</b> too far</p><p><b>Home:</b> my heart</p><p><b>Trainer:</b> me</p></div><div class="box">Despite questionable behavior leading to weird boyfriend moments, researchers have confirmed that this specimen is extremely lovable.<br><br>Only one is known to exist. Unfortunately, he has already been caught.</div><button class="p" onclick="go(5)">STATS →</button></section>
 <section id="s5" class="s"><h2>STATS</h2>
@@ -21,7 +36,91 @@ button{font:inherit;font-weight:bold;padding:13px;border:3px solid #17202a;borde
 <section id="s9" class="s c"><h2>🏆 HALL OF FAME 🏆</h2><div class="box"><h3>Congratulations!</h3><p><b>C and G entered the Hall of Fame.</b></p></div><div class="gallery"><img src="memory1.jpeg"><img src="memory2.jpeg"><img src="memory3.jpeg"><img src="memory4.jpeg"><img src="memory5.jpeg"></div><button class="p" style="margin-top:15px" onclick="go(10)">CONTINUE →</button></section>
 <section id="s10" class="s"><h2>GAME COMPLETE</h2><div class="box"><p>Pokédex: <b>1/1</b></p><p>Rare Pokémon caught: <b>1</b></p><p>Boyfriends required: <b>1</b></p><p>Search complete: <b>✓</b></p></div><h3>SAVE GAME?</h3><button class="p" onclick="document.getElementById('save').innerHTML='<b>Game saved. ❤️</b><br>Let’s keep playing.'">YES ❤️</button><div id="save" class="box">Game not yet saved.</div><div class="credits"><div><b>Trainer:</b> C</div><div><b>Rare Pokémon:</b> Geryes</div><div><b>Final Boss:</b> surviving C's mood swings</div><div><b>Special thanks:</b> coffee / Mike Rentals / Toters / Steve (Maro) and m3allim / Hady w Sara / Booking.com</div></div><button style="margin-top:20px" onclick="release()">RELEASE POKÉMON</button><div id="rel" class="box hide"></div></section>
 </div><script>
-let r=0,rr=0;function go(n){document.querySelectorAll('.s').forEach(x=>x.classList.remove('on'));document.getElementById('s'+n).classList.add('on');scrollTo(0,0)}
-function battle(x){let b=document.getElementById('battle');if(x==='bag')b.innerHTML='<b>BAG</b><br>🔋 Battery Charger<br>☕ 6 Cups of Coffee<br>❤️ Girlfriend Attention<br>🧠 Mind Booster — Political Debate';else if(x==='fight')b.innerHTML='<b>FIGHT</b><br>Annoy Him · Ignore Him · Steal His Hoodie · Kiss Attack<br><br>Kiss Attack selected. GERYES became confused.';else if(x==='poke')b.innerText='Only one Pokémon registered: GERYES.';else{r++;b.innerText=r===1?"Can't escape!":r===2?"Seriously?":"Stop trying to leave your girlfriend."}}
-function release(){rr++;let x=document.getElementById('rel');x.classList.remove('hide');x.innerHTML=rr===1?'⚠️ Release GERYES back into the wild?<br><br><button onclick="release()">RELEASE</button>':rr===2?'❌ ERROR 403<br>Unable to release Pokémon.<br>Reason: Trainer is emotionally attached.<br><br><button onclick="release()">TRY AGAIN</button>':rr===3?'Bro.':'Access permanently revoked.'}
+let runCount = 0, releaseCount = 0;
+
+function go(n){
+  document.querySelectorAll('.s').forEach(x=>x.classList.remove('on'));
+  document.getElementById('s'+n).classList.add('on');
+  window.scrollTo(0,0);
+}
+
+function setBattle(html){
+  document.getElementById('battle').innerHTML = html;
+}
+
+function setSubmenu(buttons){
+  const m = document.getElementById('submenu');
+  m.innerHTML = '';
+  buttons.forEach(([label, fn]) => {
+    const b = document.createElement('button');
+    b.textContent = label;
+    b.addEventListener('click', fn);
+    m.appendChild(b);
+  });
+  m.classList.remove('hide');
+}
+
+function hideSubmenu(){
+  document.getElementById('submenu').classList.add('hide');
+}
+
+function openFight(){
+  setBattle('<b>FIGHT</b><br>Choose a move:');
+  setSubmenu([
+    ['ANNOY HIM', () => setBattle('<b>ANNOY HIM</b><br><br>Nice try! Pokémon responds with hug. 🤗')],
+    ['IGNORE HIM', () => setBattle('<b>IGNORE HIM</b><br><br>Nice try! Pokémon responds with hug. 🤗')],
+    ['STEAL HIS HOODIE', () => setBattle('<b>STEAL HIS HOODIE</b><br><br>Pokémon feels cold. 🥶')],
+    ['NAZZELNE HON', () => setBattle('<b>NAZZELNE HON</b><br><br>Pokémon feels stressed. 😵‍💫')],
+    ['KISS ATTACK', () => setBattle('<b>KISS ATTACK</b><br><br>Pokémon feels loved! ❤️<br><b>You win! Heart stolen.</b>')]
+  ]);
+}
+
+function openBag(){
+  setBattle('<b>BAG</b><br>Choose an item:');
+  setSubmenu([
+    ['🔋 BATTERY CHARGER', () => setBattle('<b>🔋 BATTERY CHARGER</b><br><br>☕ 6 cups of coffee')],
+    ['❤️ GIRLFRIEND ATTENTION', () => setBattle('<b>❤️ GIRLFRIEND ATTENTION</b><br><br>Extremely effective.')],
+    ['🧠 MIND BOOSTER', () => setBattle('<b>🧠 MIND BOOSTER</b><br><br>Political debate')]
+  ]);
+}
+
+function openPokemon(){
+  hideSubmenu();
+  setBattle(
+    '<b>GERYES — Lv. 99 ❤️</b><br><br>' +
+    '<b>Nickname:</b> hayete<br>' +
+    '<b>Type:</b> Mountain Mover / Dream Weaver<br>' +
+    '<b>Current Habitat:</b> too far<br>' +
+    '<b>Home:</b> my heart<br>' +
+    '<b>Trainer:</b> me'
+  );
+}
+
+function runAway(){
+  hideSubmenu();
+  runCount++;
+  const msg =
+    runCount === 1 ? "Can't escape!" :
+    runCount === 2 ? "Seriously?" :
+    "Stop trying to leave your girlfriend.";
+  setBattle('<b>RUN</b><br><br>' + msg);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('fightBtn').addEventListener('click', openFight);
+  document.getElementById('bagBtn').addEventListener('click', openBag);
+  document.getElementById('pokemonBtn').addEventListener('click', openPokemon);
+  document.getElementById('runBtn').addEventListener('click', runAway);
+});
+
+function release(){
+  releaseCount++;
+  let x=document.getElementById('rel');
+  x.classList.remove('hide');
+  x.innerHTML =
+    releaseCount===1 ? '⚠️ Release GERYES back into the wild?<br><br><button onclick="release()">RELEASE</button>' :
+    releaseCount===2 ? '❌ ERROR 403<br>Unable to release Pokémon.<br>Reason: Trainer is emotionally attached.<br><br><button onclick="release()">TRY AGAIN</button>' :
+    releaseCount===3 ? 'Bro.' :
+    'Access permanently revoked.';
+}
 </script></body></html>
