@@ -19,7 +19,7 @@ button{font:inherit;font-weight:bold;padding:13px;border:3px solid #17202a;borde
 .quest-mini{font-size:13px;opacity:.7}
 .quest-meter{margin:12px 0}
 </style></head><body><div class="app">
-<section id="s1" class="s on c"><h1>POKÉMON:<br>BOYFRIEND EDITION</h1><p>🔴</p><p>A highly questionable adventure awaits...</p><div class="g"><button class="p" onclick="go(2)">▶ NEW GAME</button><button onclick="alert('No save file found. Catch him first.')">CONTINUE</button><button onclick="alert('Girlfriend difficulty: IMPOSSIBLE\nBoyfriend intelligence: Variable\nRomance level: Classified')">OPTIONS</button><button onclick="alert('Trainer C approved.')">INFO</button><button class="p" style="grid-column:1/-1" onclick="go(11)">🎂 BIRTHDAY</button><button class="p" style="grid-column:1/-1" onclick="startQuest()">🗺️ GO ON A QUEST</button></div></section>
+<section id="s1" class="s on c"><h1>POKÉMON:<br>BOYFRIEND EDITION</h1><p>🔴</p><p>A highly questionable adventure awaits...</p><div class="g"><button class="p" onclick="go(2)">▶ NEW GAME</button><button onclick="alert('No save file found. Catch him first.')">CONTINUE</button><button onclick="alert('Girlfriend difficulty: IMPOSSIBLE\nBoyfriend intelligence: Variable\nRomance level: Classified')">OPTIONS</button><button onclick="alert('Trainer C approved.')">INFO</button><button class="p" style="grid-column:1/-1" onclick="go(11)">🎂 BIRTHDAY</button><button class="p" style="grid-column:1/-1" id="questHomeBtn">🗺️ GO ON A QUEST</button></div></section>
 <section id="s2" class="s">
 <h2>A wild GERYES appeared!</h2>
 <div class="box"><b>GERYES — Lv. 99 ❤️</b><div class="hp"><i></i></div></div>
@@ -207,7 +207,7 @@ function renderQuest(){
  }
 
  if(questLevel>7){
-  s.innerHTML='<div class="c"><img class="quest-photo" src="quest_final_kiss.jpeg"><h2>🏆 LOVE QUEST COMPLETE ❤️</h2><p><b>GERYES — Lv. 99</b></p><div class="box" style="text-align:left">❤️ C’s Heart — <b>Captured</b><br>👨‍👧 Uncle M Approval — <b>Earned</b><br>🍎 Extended Family Fruit Test — <b>Passed</b><br>🚗 Nazzelne Hon Crisis — <b>Survived</b><br>✈️ Mission to C — <b>Completed</b><br>🧠 Brain Activity — <b>Questionably High</b></div><p><b>Boyfriend XP: 9,999</b></p><p><i>You completed the Love Quest.<br>You’re stuck with C. ❤️</i></p><div class="choice-grid"><button class="p" onclick="qmsg(\'Game saved. ❤️ No refunds.\')">❤️ SAVE FOREVER</button><button onclick="go(1)">🏠 BACK HOME</button></div></div>';
+  s.innerHTML='<div class="c"><img class="quest-photo" src="quest_final_kiss.jpeg"><h2>🏆 LOVE QUEST COMPLETE ❤️</h2><p><b>GERYES — Lv. 99</b></p><div class="box" style="text-align:left">❤️ C’s Heart — <b>Captured</b><br>👨‍👧 Uncle M Approval — <b>Earned</b><br>🍎 Extended Family Fruit Test — <b>Passed</b><br>🚗 Nazzelne Hon Crisis — <b>Survived</b><br>✈️ Mission to C — <b>Completed</b><br>🧠 Brain Activity — <b>Questionably High</b></div><p><b>Boyfriend XP: 9,999</b></p><p><i>You completed the Love Quest.<br>You&#39;re stuck with C. ❤️</i></p><div class="choice-grid"><button class="p" onclick="qmsg(\'Game saved. ❤️ No refunds.\')">❤️ SAVE FOREVER</button><button onclick="go(1)">🏠 BACK HOME</button></div></div>';
  }
 }
 
@@ -330,4 +330,10 @@ function boss(x){
  if(x===3)qmsg('Very effective... but the boss still has 1 HP.');
  if(x===4)qmsg('KISS ATTACK! ❤️<br>C’s mood swing disappeared.<br>Geryes feels loved.<br><b>CRITICAL HIT.</b><br><br><button class="p" onclick="nextQuest()">CLAIM REWARD →</button>');
 }
+
+document.addEventListener('DOMContentLoaded', function(){
+  var q=document.getElementById('questHomeBtn');
+  if(q) q.addEventListener('click', startQuest);
+});
+
 </script></body></html>
