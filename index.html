@@ -45,7 +45,7 @@ button{font:inherit;font-weight:bold;padding:13px;border:3px solid #17202a;borde
 <section id="s8" class="s"><h2>BADGES</h2><div class="badges"><div class="badge">🏅 First Date Badge</div><div class="badge">🏅 First Trip Badge</div><div class="badge">🏅 Mariella Approval Badge</div><div class="badge">🏅 Survived First Argument Badge</div><div class="badge">🏅 Made Her Laugh While Angry Badge</div><div class="badge">🏅 Passed the Extended Family Fruit Test Badge</div><div class="badge">🏅 Serial Traveler Badge</div><div class="badge">🏅 Survived Zahle Encounter Badge</div><div class="badge">🏅 Changed Anniversary Date Badge</div></div><button class="p" style="margin-top:15px" onclick="go(9)">HALL OF FAME →</button></section>
 <section id="s9" class="s c"><h2>🏆 HALL OF FAME 🏆</h2><div class="box"><h3>Congratulations!</h3><p><b>C and G entered the Hall of Fame.</b></p></div><div class="gallery"><img src="memory1.jpeg"><img src="memory2.jpeg"><img src="memory3.jpeg"><img src="memory4.jpeg"><img src="memory5.jpeg"></div><button class="p" style="margin-top:15px" onclick="go(10)">CONTINUE →</button></section>
 <section id="s10" class="s"><h2>GAME COMPLETE</h2><div class="box"><p>Pokédex: <b>1/1</b></p><p>Rare Pokémon caught: <b>1</b></p><p>Boyfriends required: <b>1</b></p><p>Search complete: <b>✓</b></p></div><h3>SAVE GAME?</h3><button class="p" onclick="document.getElementById('save').innerHTML='<b>Game saved. ❤️</b><br>Let’s keep playing.'">YES ❤️</button><div id="save" class="box">Game not yet saved.</div><div class="credits"><div><b>Trainer:</b> C</div><div><b>Rare Pokémon:</b> Geryes</div><div><b>Final Boss:</b> surviving C's mood swings</div><div><b>Special thanks:</b> coffee / Mike Rentals / Toters / Steve (Maro) and m3allim / Hady w Sara / Booking.com</div></div><button class="p" style="margin-top:20px;margin-right:10px" onclick="go(1)">← BACK HOME</button><button style="margin-top:20px" onclick="release()">RELEASE POKÉMON</button><div id="rel" class="box hide"></div></section>
-<section id="s11" class="s c"><h2>🎂 BIRTHDAY EVENT</h2><img class="feature-img" src="birthday_geryes.jpeg"><div class="box"><b>Special event unlocked!</b><br><br>Old but gold. ✨</div><button class="p" onclick="go(1)">← BACK HOME</button></section><section id="s12" class="s"><h2>🗺️ BOYFRIEND QUEST</h2><div id="questProgress"><b>LEVEL 1 / 5</b></div><div id="questStage" class="quest-stage"></div><div id="questFeedback" class="quest-feedback"></div><button onclick="go(1)">← BACK HOME</button></section></div><script>
+<section id="s11" class="s c"><h2>🎂 BIRTHDAY EVENT</h2><img class="feature-img" src="birthday_geryes.jpeg"><div class="box"><b>Special event unlocked!</b><br><br>Old but gold. ✨</div><button class="p" onclick="go(1)">← BACK HOME</button></section><section id="s12" class="s"><h2>🗺️ BOYFRIEND QUEST</h2><div id="questProgress"><b>LEVEL 1 / 5</b></div><div id="questStage" class="quest-stage"></div><div id="questFeedback" class="quest-feedback"></div><div class="choice-grid" style="margin-top:18px"><button onclick="renderQuest()">↻ REPEAT LEVEL</button><button onclick="go(1)">← BACK HOME</button></div></section></div><script>
 let runCount = 0, releaseCount = 0;
 
 function go(n){
@@ -124,15 +124,45 @@ function release(){
     'Access permanently revoked.';
 }
 
-let questLevel=1,coffeeCount=0,carEscape=70,clothesLeft=5,hulkStage=0;
+let questLevel=1,coffeeCount=0,carEscape=70,clothesLeft=5,hulkStage=0,travelerCapacity=126,travelerItems={};
 
 function startQuest(){questLevel=1;go(12);renderQuest()}
 function qmsg(x){document.getElementById('questFeedback').innerHTML=x}
+function mindToggle(key,amount,btn){
+  window.mindSelected = window.mindSelected || {};
+  const selected = !!window.mindSelected[key];
+
+  if(!selected){
+    window.mindSelected[key] = true;
+    window.mindScore = Math.max(0, Math.min(100, (window.mindScore||0) + amount));
+    btn.style.background = amount < 0 ? '#ffd0d0' : '#dff3d8';
+    btn.style.opacity = '1';
+    if(amount < 0){
+      qmsg(amount===-30 ? '💀 Critical brain damage. −30%<br>Tap the option again to undo it.' : '🫠 Harmful gossip detected. −20%<br>Tap the option again to undo it.');
+    } else {
+      qmsg('Brain activity increased by '+amount+'%.');
+    }
+  } else {
+    window.mindSelected[key] = false;
+    window.mindScore = Math.max(0, Math.min(100, (window.mindScore||0) - amount));
+    btn.style.background = 'white';
+    btn.style.opacity = '1';
+    qmsg('Option removed. Brain activity recalculated.');
+  }
+
+  const pct=document.getElementById('mindPct'), bar=document.getElementById('mindBar');
+  if(pct) pct.textContent=window.mindScore;
+  if(bar) bar.style.width=window.mindScore+'%';
+
+  if(window.mindScore>=100){
+    qmsg('🧠 Brain activity: 100%!<br><b>MIND BOOSTER COMPLETE.</b><br><br><button class="p" onclick="nextQuest()">NEXT LEVEL →</button>');
+  }
+}
 function nextQuest(){questLevel++;qmsg('');renderQuest()}
 
 function renderQuest(){
  const s=document.getElementById('questStage');
- document.getElementById('questProgress').innerHTML=questLevel<=9?'<b>LEVEL '+questLevel+' / 9</b>':'<b>QUEST COMPLETE</b>';
+ document.getElementById('questProgress').innerHTML=questLevel<=7?'<b>LEVEL '+questLevel+' / 7</b>':'<b>QUEST COMPLETE</b>';
 
  if(questLevel===1){
   s.innerHTML='<h3>LEVEL 1 — Catch the heart ❤️</h3><p>Tap the heart before it escapes.</p><div id="runawayHeart" class="quest-heart" style="left:42%;top:48%">❤️</div>';
@@ -140,45 +170,44 @@ function renderQuest(){
   h.onclick=()=>{moves++;if(moves<3){h.style.left=Math.floor(Math.random()*70)+'%';h.style.top=(30+Math.floor(Math.random()*50))+'%';qmsg(moves===1?'Nice try 😌':'Almost...')}else{h.textContent='💘';qmsg('Too late. You already have it. ❤️<br><br><button class="p" onclick="nextQuest()">NEXT LEVEL →</button>')}}
  }
 
+
  if(questLevel===2){
-  coffeeCount=0;
-  s.innerHTML='<h3>LEVEL 2 — Battery Critical 🔋</h3><p>Recharge Geryes.</p><div class="c"><button id="coffeeTap" style="font-size:52px">☕</button></div><div class="box">Coffee count: <b id="coffeeCount">0</b> / 6</div>';
-  document.getElementById('coffeeTap').onclick=()=>{coffeeCount++;document.getElementById('coffeeCount').textContent=coffeeCount;if(coffeeCount<6)qmsg('Still not enough.');else qmsg('GERYES fully charged. ☕🔋<br>Side effects may include political opinions.<br><br><button class="p" onclick="nextQuest()">NEXT LEVEL →</button>')}
+  window.mindScore = 0;
+  window.mindSelected = {};
+  s.innerHTML='<h3>LEVEL 2 — Mind Booster 🧠</h3><p>Increase Geryes’s brain activity to 100%.</p><div class="box"><b>Brain activity: <span id="mindPct">0</span>%</b><div style="height:22px;background:#ddd;border:4px solid #18212b;border-radius:8px;margin-top:10px;overflow:hidden"><div id="mindBar" style="height:100%;width:0%;background:#72b84a;transition:.25s"></div></div></div><p class="quest-mini">Tap an option to add it. Tap it again to remove it.</p><div class="choice-grid"><button onclick="mindToggle(\'pope\',20,this)">Pope\'s shoes and winter coat <b>+20%</b></button><button onclick="mindToggle(\'shourouq\',-30,this)">Shourouq divorce party <b>−30%</b></button><button onclick="mindToggle(\'kataeb\',30,this)">Kataeb historical endeavors <b>+30%</b></button><button onclick="mindToggle(\'germany\',20,this)">Germany football team uniforms\' history <b>+20%</b></button><button onclick="mindToggle(\'usek\',-20,this)">Usek harmful gossip <b>−20%</b></button><button onclick="mindToggle(\'ortho\',20,this)">Ortho surgery planning <b>+20%</b></button><button onclick="mindToggle(\'outfit\',10,this)">C\'s outfit planning <b>+10%</b></button></div>';
  }
 
  if(questLevel===3){
-  s.innerHTML='<h3>LEVEL 3 — Mind Booster 🧠</h3><p>Increase Geryes’s brain activity to 100%.</p><div class="choice-grid"><button onclick="q3(0)">📚 Books</button><button onclick="q3(0)">🧮 Calculator</button><button onclick="q3(1)">📰 Politics</button><button onclick="q3(0)">😴 Sleep</button></div>';
+  carEscape=0;
+  s.innerHTML='<h3>LEVEL 3 — NAZZELNE HON 🚗</h3><img id="carQuestImg" class="quest-photo" src="car_calm.jpeg"><div class="box"><b>ROAD TRIP STARTED</b><br>C is currently inside the vehicle.<br>Mood: Stable 💚<br><br><span class="quest-mini">Objective: keep it that way.</span></div><button class="p" onclick="startCarCrisis()">CONTINUE →</button>';
  }
+
 
  if(questLevel===4){
-  carEscape=0;
-  s.innerHTML='<h3>LEVEL 4 — NAZZELNE HON 🚗</h3><img id="carQuestImg" class="quest-photo" src="car_calm.jpeg"><div class="box"><b>ROAD TRIP STARTED</b><br>C is currently inside the vehicle.<br>Mood: Stable 💚<br><br><span class="quest-mini">Objective: keep it that way.</span></div><button class="p" onclick="startCarCrisis()">CONTINUE →</button>';
+  s.innerHTML='<h3>LEVEL 4 — Extended Family Fruit Test 🍎</h3><div class="box"><b>Pokémon is invited to meet the family.</b><br><br>Two fruit plates sit on the table — one for G, one for C.</div><div class="c" style="font-size:52px;margin:14px 0">🍽️🍎🍇 &nbsp;&nbsp; 🍽️🍊🍓</div><div class="choice-grid"><button onclick="fruit(0)">Pick up a plate and eat</button><button onclick="fruit(0)">Ask C to give G a plate</button><button onclick="fruit(0)">Wait for C to pick up her plate, then pick the other</button><button onclick="fruit(0)">Feed C using the fork then eat from the same fork</button><button onclick="fruit(1)">Place a fork in a plate and hand it to C, then pick up a plate to eat</button></div>';
  }
 
+
  if(questLevel===5){
-  hulkStage=0;
-  s.innerHTML='<h3>LEVEL 5 — Male NPC Detected 🚨</h3><img id="hulkImg" class="quest-photo" src="hulk_calm.jpeg"><div class="box"><b>Distance from Trainer C:</b> 10 feet<div class="quest-meter">HULK TRANSFORMATION<div class="bar"><i id="hulkBar" style="width:10%;background:#65b741"></i></div><b id="hulkNum">10%</b></div></div><button class="p" onclick="advanceHulk()">NPC APPROACHES →</button>';
+  window.uncleScore=0;
+  window.uncleSelected={};
+  s.innerHTML='<h3>LEVEL 5 — Uncle M Approval 👨‍👧</h3><p><b>Mission:</b> Try to please Uncle M and earn his approval.</p><div class="box"><b>UNCLE M APPROVAL: <span id="unclePct">0</span>%</b><div style="height:22px;background:#ddd;border:4px solid #18212b;border-radius:8px;margin-top:10px;overflow:hidden"><div id="uncleBar" style="height:100%;width:0%;background:#72b84a;transition:.25s"></div></div></div><p class="quest-mini">Choose wisely. Tap an option again to undo it.</p><div class="choice-grid"><button onclick="uncleToggle(\'tea\',20,this)">🎁 Bring a tea box gift <b>+20%</b></button><button onclick="uncleToggle(\'oud\',30,this)">🎶 Talk about oud music <b>+30%</b></button><button onclick="uncleToggle(\'beauty\',0,this)">✨ Mention C\\'s beauty</button><button onclick="uncleToggle(\'zahle\',-60,this)">🚗 Try to hijack a Zahle trip <b>−60%</b></button><button onclick="uncleToggle(\'distance\',10,this)">🫡 Keep a respectful distance from C <b>+10%</b></button><button onclick="uncleToggle(\'zaatar\',10,this)">🥙 Include zaatar man\\'ouche <b>+10%</b></button><button onclick="uncleToggle(\'shave\',30,this)">🪒 Shave beard <b>+30%</b></button></div>';
  }
 
  if(questLevel===6){
-  s.innerHTML='<h3>LEVEL 6 — Extended Family Fruit Test 🍎</h3><p>Survive the family encounter.</p><div class="choice-grid"><button onclick="fruit(0)">🍎 One apple</button><button onclick="fruit(0)">🍌 One banana</button><button onclick="fruit(0)">🍊 One orange</button><button onclick="fruit(1)">🧺 Entire fruit basket</button></div>';
+  travelerCapacity=126;
+  travelerItems={gift:true,clothes:5,charger:true,phone:true,snack:true};
+  s.innerHTML='<h3>LEVEL 6 — Serial Traveler ✈️</h3><img class="quest-photo" src="travel_pack.jpeg"><div class="box"><b>MISSION: COME SEE C ❤️</b><br>Flight booked.<br>Girlfriend waiting.<br>Suitcase capacity: critically inadequate.</div><div class="box c"><div style="font-size:58px">🧳</div><div id="travelerItems" style="font-size:34px;line-height:1.7">🎁 👕 👖 👔 🧥 👚 🔌 📱 🍫</div><div style="margin-top:12px"><b>SUITCASE CAPACITY</b><div class="bar"><i id="capacityBar" style="width:100%;background:#e84b4b"></i></div><b id="capacityText">126%</b></div></div><div class="choice-grid"><button onclick="removeTravelerItem(\'gift\')">Remove 🎁 gift</button><button onclick="removeTravelerItem(\'clothes\')">Remove clothes</button><button onclick="removeTravelerItem(\'charger\')">Remove 🔌 charger</button><button onclick="removeTravelerItem(\'phone\')">Remove 📱 phone</button><button onclick="removeTravelerItem(\'snack\')">Remove 🍫 snack</button><button onclick="closeCase()">CLOSE SUITCASE</button></div>';
  }
 
  if(questLevel===7){
-  s.innerHTML='<h3>LEVEL 7 — Anniversary Crisis 📅</h3><p>Select your anniversary date.</p><div class="choice-grid"><button onclick="anniv(0)">Date A</button><button onclick="anniv(0)">Date B</button><button onclick="anniv(0)">Original date</button><button onclick="anniv(1)">Ask C</button></div>';
+  window.finalMood=0;
+  window.finalSelected={};
+  s.innerHTML='<h3>FINAL LEVEL — C’S MOOD SWINGS 👑</h3><p><b>Restore C’s mood to 100%.</b></p><div class="box"><b>C MOOD: <span id="finalMoodPct">0</span>%</b><div style="height:22px;background:#ddd;border:4px solid #18212b;border-radius:8px;margin-top:10px;overflow:hidden"><div id="finalMoodBar" style="height:100%;width:0%;background:#72b84a;transition:.25s"></div></div></div><div class="choice-grid"><button onclick="finalMoodMove(\'logic\',0,this)">🧠 Use logic</button><button onclick="finalMoodMove(\'wrong\',0,this)">❓ Ask “What’s wrong?”</button><button onclick="finalMoodMove(\'lift\',40,this)">👑 Princess lift <b>+40%</b></button><button onclick="finalMoodMove(\'joke\',10,this)">😂 Tell a dad joke <b>+10%</b></button><button onclick="finalMoodMove(\'beauty\',20,this)">✨ Compliment C’s beauty <b>+20%</b></button><button onclick="finalMoodMove(\'flight\',70,this)">✈️ Book a flight <b>+70%</b></button></div>';
  }
 
- if(questLevel===8){
-  clothesLeft=5;
-  s.innerHTML='<h3>LEVEL 8 — Serial Traveler ✈️</h3><img class="quest-photo" src="travel_pack.jpeg"><div class="box"><b>MISSION: COME SEE C ❤️</b><br>Flight booked.<br>Girlfriend waiting.<br>Suitcase capacity: critically inadequate.</div><p>The 🎁 gift for C cannot be left behind.</p><div class="box c"><div style="font-size:58px">🧳</div><div style="font-size:34px">🎁 👕 👖 👔 🧥 👚</div><p>Clothes remaining: <b id="clothesLeft">5</b></p></div><div class="choice-grid"><button onclick="removeGift()">Remove 🎁 gift</button><button onclick="removeClothes()">Remove clothes</button><button onclick="closeCase()">CLOSE SUITCASE</button></div>';
- }
-
- if(questLevel===9){
-  s.innerHTML='<h3>FINAL LEVEL — C’S MOOD SWINGS 👑</h3><p>Choose the ultimate move.</p><div class="choice-grid"><button onclick="boss(0)">Use logic</button><button onclick="boss(1)">RUN</button><button onclick="boss(2)">6 Coffees</button><button onclick="boss(3)">Hug Attack</button><button onclick="boss(4)">Kiss Attack ❤️</button></div>';
- }
-
- if(questLevel>9){
-  s.innerHTML='<div class="c"><img class="quest-photo" src="quest_final_kiss.jpeg"><h2>🏆 QUEST COMPLETE 🏆</h2><p><b>GERYES — Lv. 99</b></p><p>Quests survived: 9</p><p>Girlfriend survived: 1</p><p>Sanity remaining: questionable</p><p>Heart ownership: <b>100% C ❤️</b></p><div class="box"><b>Achievement unlocked:</b><br>Mountain Mover / Dream Weaver</div><button class="p" onclick="go(1)">BACK HOME</button></div>';
+ if(questLevel>7){
+  s.innerHTML='<div class="c"><img class="quest-photo" src="quest_final_kiss.jpeg"><h2>🏆 LOVE QUEST COMPLETE ❤️</h2><p><b>GERYES — Lv. 99</b></p><div class="box" style="text-align:left">❤️ C’s Heart — <b>Captured</b><br>👨‍👧 Uncle M Approval — <b>Earned</b><br>🍎 Extended Family Fruit Test — <b>Passed</b><br>🚗 Nazzelne Hon Crisis — <b>Survived</b><br>✈️ Mission to C — <b>Completed</b><br>🧠 Brain Activity — <b>Questionably High</b></div><p><b>Boyfriend XP: 9,999</b></p><p><i>You completed the Love Quest.<br>You’re stuck with C. ❤️</i></p><div class="choice-grid"><button class="p" onclick="qmsg(\'Game saved. ❤️ No refunds.\')">❤️ SAVE FOREVER</button><button onclick="go(1)">🏠 BACK HOME</button></div></div>';
  }
 }
 
@@ -187,7 +216,7 @@ function q3(ok){qmsg(ok?'🧠 Brain activity: 147%<br>POLITICAL DEBATE DETECTED.
 function startCarCrisis(){
  const s=document.getElementById('questStage');
  carEscape=87;
- s.innerHTML='<h3>🚨 NAZZELNE HON!</h3><img id="carQuestImg" class="quest-photo" src="car_annoyed.jpeg"><div class="box"><b>KEEP C INSIDE THE CAR</b><br><div class="quest-meter">C ESCAPE RISK<div class="bar"><i id="escapeBar" style="width:87%;background:#e84b4b"></i></div><b id="escapeNum">87%</b></div></div><div class="choice-grid"><button onclick="carTry(1)">🎵 Turn on the music</button><button onclick="carTry(2)">🪞 Hand her a mirror</button><button onclick="carTry(3)">🗣️ Open past debates</button><button onclick="carTry(4)">🍔 Give her food</button></div><div class="c" style="margin-top:20px"><button onclick="carTry(5)" style="font-size:22px">👨 GERYES</button></div>';
+ s.innerHTML='<h3>🚨 NAZZELNE HON!</h3><img id="carQuestImg" class="quest-photo" src="car_annoyed.jpeg"><div class="box"><b>KEEP C INSIDE THE CAR</b><br><div class="quest-meter">C ESCAPE RISK<div class="bar"><i id="escapeBar" style="width:87%;background:#e84b4b"></i></div><b id="escapeNum">87%</b></div></div><div class="choice-grid"><button onclick="carTry(1)">🎵 Turn on the music</button><button onclick="carTry(2)">🪞 Hand her a mirror</button><button onclick="carTry(3)">🗣️ Open past debates</button><button onclick="carTry(4)">🍔 Give her food</button></div><div class="choice-grid" style="margin-top:20px"><button onclick="carTry(5)">👑 APOLOGIZE</button><button onclick="carTry(6)">🤗 TRY TO HUG</button></div>';
  qmsg('');
 }
 function carTry(x){
@@ -196,6 +225,7 @@ function carTry(x){
  if(x===2){carEscape=65;qmsg('Highly effective... temporarily. 🪞')}
  if(x===3){carEscape=100;qmsg('Terrible decision. ESCAPE METER +40%.')}
  if(x===4){carEscape=50;qmsg('C reconsidered leaving... temporarily.')}
+ if(x===6){carEscape=95;qmsg('You almost got bitten. 😬')}
  if(x===5){
    carEscape=0;
    document.getElementById('carQuestImg').src='car_cuddly.jpeg';
@@ -212,23 +242,85 @@ function advanceHulk(){
 }
 function calmHulk(){qmsg('Trick solved: remove the male NPC from Trainer C’s 10-foot radius.<br><br>Threat eliminated.<br><small>Male NPC was literally just breathing.</small><br><br><button class="p" onclick="nextQuest()">NEXT LEVEL →</button>')}
 
-function fruit(ok){qmsg(ok?'🏅 EXTENDED FAMILY FRUIT TEST PASSED.<br><br><button class="p" onclick="nextQuest()">NEXT LEVEL →</button>':'Rejected. Apparently one fruit is not a fruit offering.')}
+function fruit(ok){qmsg(ok?'🏅 Correct! You won the Extended Family Fruit Test Badge.<br><br><button class="p" onclick="nextQuest()">NEXT LEVEL →</button>':'Wrong, try again.')}
 function anniv(ok){qmsg(ok?'Date successfully changed. Again. 😂<br>🏅 Changed Anniversary Date Badge unlocked.<br><br><button class="p" onclick="nextQuest()">NEXT LEVEL →</button>':'❌ C disagrees.')}
 
-function removeGift(){qmsg('Absolutely not. That’s for C. 🎁')}
-function removeClothes(){
- if(clothesLeft>1){
-   clothesLeft--;
-   document.getElementById('clothesLeft').textContent=clothesLeft;
-   qmsg(clothesLeft===4?'Priorities are being established.':clothesLeft===3?'Who needs clothes anyway?':'Keep going... the gift needs space.');
+function uncleToggle(key,amount,btn){
+  window.uncleSelected=window.uncleSelected||{};
+  const selected=!!window.uncleSelected[key];
+
+  if(!selected){
+    window.uncleSelected[key]=true;
+    window.uncleScore=Math.max(0,Math.min(100,(window.uncleScore||0)+amount));
+    btn.style.background=amount<0?'#ffd0d0':amount>0?'#dff3d8':'#fff0c9';
+
+    if(key==='beauty') qmsg('😬 Awkward. Don’t do that.');
+    else if(key==='zahle') qmsg('🚨 You lose 60% approval. Very bold. Very wrong.');
+    else qmsg('Uncle M approval increased by '+amount+'%.');
+  }else{
+    window.uncleSelected[key]=false;
+    window.uncleScore=Math.max(0,Math.min(100,(window.uncleScore||0)-amount));
+    btn.style.background='white';
+    qmsg('Option removed. Approval recalculated.');
+  }
+
+  const pct=document.getElementById('unclePct'),bar=document.getElementById('uncleBar');
+  if(pct)pct.textContent=window.uncleScore;
+  if(bar)bar.style.width=window.uncleScore+'%';
+
+  if(window.uncleScore>=100){
+    qmsg('🏆 UNCLE M APPROVAL: 100%!<br><b>Approval secured.</b><br><br><button class="p" onclick="nextQuest()">NEXT LEVEL →</button>');
+  }
+}
+
+function updateTravelerUI(){
+ const icons=[];
+ if(travelerItems.gift) icons.push('🎁');
+ for(let i=0;i<travelerItems.clothes;i++) icons.push(['👕','👖','👔','🧥','👚'][i]||'👕');
+ if(travelerItems.charger) icons.push('🔌');
+ if(travelerItems.phone) icons.push('📱');
+ if(travelerItems.snack) icons.push('🍫');
+ document.getElementById('travelerItems').textContent=icons.join(' ');
+ document.getElementById('capacityText').textContent=travelerCapacity+'%';
+ const bar=document.getElementById('capacityBar');
+ bar.style.width=Math.min(100,travelerCapacity)+'%';
+ bar.style.background=travelerCapacity>100?'#e84b4b':travelerCapacity>85?'#ffd84d':'#65b741';
+}
+function removeTravelerItem(x){
+ if(x==='gift'&&travelerItems.gift){travelerItems.gift=false;travelerCapacity-=30;qmsg('The gift is out... suspicious choice. 🎁');}
+ else if(x==='clothes'){
+   if(travelerItems.clothes>1){travelerItems.clothes--;travelerCapacity-=10;qmsg(travelerItems.clothes===1?'Geryes now has approximately one outfit.':'One outfit sacrificed.');}
+   else qmsg('He probably needs at least one outfit.');
  }
+ else if(x==='charger'&&travelerItems.charger){travelerItems.charger=false;travelerCapacity-=8;qmsg('Charger removed. Bold move for someone traveling.');}
+ else if(x==='phone'&&travelerItems.phone){travelerItems.phone=false;travelerCapacity-=12;qmsg('Phone removed. How is he supposed to find C now?');}
+ else if(x==='snack'&&travelerItems.snack){travelerItems.snack=false;travelerCapacity-=6;qmsg('Snack removed. Morale decreased.');}
+ updateTravelerUI();
 }
 function closeCase(){
- if(clothesLeft>1) qmsg('❌ SUITCASE WON’T CLOSE.<br>Something has to go.');
- else {
-   document.getElementById('questStage').innerHTML='<h3>✈️ FLIGHT IN PROGRESS...</h3><img class="quest-photo" src="travel_reunion.jpeg"><div class="box"><b>MISSION COMPLETE ❤️</b><br>Geryes successfully reached C.<br>Gift: delivered 🎁<br>Clothes remaining: questionable.<br>Girlfriend: acquired.<br><br><b>+1000 Boyfriend XP</b><br><i>Worth the baggage fees.</i></div>';
+ if(!travelerItems.gift){qmsg('The suitcase closes... but the mission fails. The gift was the point. 🎁');return;}
+ if(travelerCapacity>100){qmsg('❌ SUITCASE WON’T CLOSE.<br>Capacity: '+travelerCapacity+'%<br>Something still has to go.');}
+ else{
+   document.getElementById('questStage').innerHTML='<h3>✈️ FLIGHT IN PROGRESS...</h3><img class="quest-photo" src="travel_reunion.jpeg"><div class="box"><b>MISSION COMPLETE ❤️</b><br>Geryes successfully reached C.<br>Gift: delivered 🎁<br>Clothes remaining: questionable.<br><br><b>+1000 Boyfriend XP</b><br><i>Worth the baggage fees.</i></div>';
    qmsg('<button class="p" onclick="nextQuest()">NEXT LEVEL →</button>');
  }
+}
+
+function finalMoodMove(key,amount,btn){
+ window.finalSelected=window.finalSelected||{};
+ if(window.finalSelected[key]){qmsg('You already tried that one.');return;}
+ window.finalSelected[key]=true;
+ btn.disabled=true;btn.style.opacity='.55';
+ if(key==='logic'){qmsg('Critical mistake. Logic was ineffective.');return;}
+ if(key==='wrong'){qmsg('“Oh, so you DON’T KNOW?” 😐');return;}
+ window.finalMood=Math.min(100,(window.finalMood||0)+amount);
+ document.getElementById('finalMoodPct').textContent=window.finalMood;
+ document.getElementById('finalMoodBar').style.width=window.finalMood+'%';
+ if(key==='lift') qmsg('👑 Princess lift! +40%. C feels loved... and slightly dizzy.');
+ if(key==='joke') qmsg('😂 Dad joke deployed. Somehow +10%.');
+ if(key==='beauty') qmsg('✨ Beauty compliment accepted. +20%.');
+ if(key==='flight') qmsg('✈️ FLIGHT BOOKED. +70%. Extremely effective.');
+ if(window.finalMood>=100) qmsg('❤️ C’S MOOD RESTORED: 100%<br><b>FINAL BOSS DEFEATED.</b><br><br><button class="p" onclick="nextQuest()">FINISH LOVE QUEST →</button>');
 }
 
 function boss(x){
